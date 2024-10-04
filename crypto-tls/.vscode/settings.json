@@ -1,0 +1,149 @@
+{
+  // Guide for BibLaTeX https://nelsonaloysio.medium.com/setting-up-vs-code-to-write-in-latex-using-latexmk-and-biber-plus-extras-b4b37c844495
+  "latex-workshop.latex.tools": [
+    {
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ],
+      "command": "pdflatex",
+      "name": "pdflatex"
+    },
+    {
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ],
+      "command": "xelatex",
+      "name": "xelatex"
+    },
+    {
+      "args": [
+        "-shell-escape",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-pdf",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ],
+      "command": "latexmk",
+      "name": "latexmk"
+    },
+    {
+      "args": [
+        "%DOCFILE%"
+      ],
+      "command": "bibtex",
+      "name": "bibtex"
+    },
+    {
+      "args": [
+        "%DOCFILE%"
+      ],
+      "command": "biber",
+      "name": "biber"
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk",
+      "tools": [
+        "latexmk"
+      ]
+    },
+    /* {
+      "name": "latexmk -> bibtex -> latexmk*2",
+      "tools": [
+        "latexmk",
+        "bibtex",
+        "latexmk",
+        "latexmk"
+      ]
+    },
+    {
+      "name": "latexmk -> biber -> latexmk*2",
+      "tools": [
+        "latexmk",
+        "biber",
+        "latexmk",
+        "latexmk"
+      ]
+    },
+    {
+      "name": "pdflatex",
+      "tools": [
+        "pdflatex"
+      ]
+    },
+    {
+      "name": "pdflatex -> bibtex -> pdflatex*2",
+      "tools": [
+        "pdflatex",
+        "bibtex",
+        "pdflatex",
+        "pdflatex"
+      ]
+    },
+    {
+      "name": "pdflatex -> biber -> pdflatex*2",
+      "tools": [
+        "pdflatex",
+        "biber",
+        "pdflatex",
+        "pdflatex"
+      ]
+    },
+    {
+      "name": "xelatex",
+      "tools": [
+        "xelatex"
+      ]
+    },
+    {
+      "name": "xelatex -> bibtex -> xelatex*2",
+      "tools": [
+        "xelatex",
+        "bibtex",
+        "xelatex",
+        "xelatex"
+      ]
+    },
+    {
+      "name": "xelatex -> biber -> xelatex*2",
+      "tools": [
+        "xelatex",
+        "biber",
+        "xelatex",
+        "xelatex"
+      ]
+    },
+    {
+      "name": "bibtex",
+      "tools": [
+        "bibtex"
+      ]
+    },
+    {
+      "name": "biber",
+      "tools": [
+        "biber"
+      ]
+    }, */
+  ],
+  // disable clean and retry on failed build
+  "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": false,
+  // Fix citation warnings in editor when using biber (wavy lines).
+  "latex-workshop.intellisense.citation.backend": "biblatex",
+  // Avoid building PDF every time a file is modified or saved.
+  //"latex-workshop.latex.autoBuild.run": "never",
+  // Sync PDF with cursor position after compiling.
+  //"latex-workshop.synctex.afterBuild.enabled": true,
+  // Automatically choose last used recipe on next build.
+  "latex-workshop.latex.recipe.default": "lastUsed",
+  "latex-workshop.latex.outDir": "%DIR%/out"
+}
