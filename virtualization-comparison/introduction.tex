@@ -1,0 +1,25 @@
+This document will compare the two hypervisors Proxmox and vSphere.
+\\\\
+Proxmox is an open-source hypervisor based on Debian. Proxmox is mostly used for home labs or small businesses. It is free to use, but you can buy a subscription to get support and additional features.
+\\\\
+vSphere is a proprietary hypervisor developed by VMWare. It is used in enterprise environments and is not free.
+
+\subsection{Understanding vSphere}
+
+vSphere has a lot of different components, with different names. Understanding the naming will be crucial for the rest of the document.
+\\\\
+\begin{itemize}
+	\item vSphere: The entire virtualization platform
+	\item ESXi: The hypervisor running on the physical hardware
+	\item vCenter: The service for managing multiple ESXi hosts
+\end{itemize}
+
+\subsection{Installation}
+
+We tried to install both hypervisors to test them and make images for this document, but we ran into issues with vSphere.
+\\\\
+Both the ESXi 7.0 and 8.0 ios provided by out teacher did not run under Hyper-V, always getting stuck on "Relocating modules and starting up the kernel".
+
+With KVM the installation worked, but we were not able to connect to the web interface, because of some problem with ESXi and the virtualized network interface.
+
+Finally the VMWare Workstation VM provided by out teacher did work, however VMWare Workstation needs Hyper-V disable and memory integrity turned off on a Windows 11 host to use nested virtualization. Since we use Hyper-V for Proxmox and turning off memory integrity is a security risk we choose not to do this. Without nested virtualization we were not able to run a VM inside ESXi.

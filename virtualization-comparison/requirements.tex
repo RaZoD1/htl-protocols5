@@ -1,0 +1,18 @@
+\subsection{Proxmox}
+Since Proxmox focuses on smaller environments with weaker hardware the hardware requirements to run Proxmox are very low. Pretty much any AMD or Intel system within the last 10 years should meet the requirements.
+
+\begin{itemize}
+	\item x86\_64 CPU with VT/AMD-V enabled
+	\item 2GB memory
+	\item About 16GB disk space for the hypervisors OS
+\end{itemize}
+
+\subsection{vSphere}
+For vSphere the requirements are a higher and only Intel Xeon, AMD Epyc and some specific SKUs of the intel core series are officially supported. 
+If you try to install ESXi v8 on an unsupported CPU you will get a warning and can only choose to reboots the system. There is a workaround with a kernel flag, but you will almost certainly not get any support from VMWare if you do so. 
+
+\begin{itemize}
+	\item x86\_64 CPU with at least 2 cores with VT/AMD-V enabled
+	\item 8GB memory
+	\item 32GB boot disk
+\end{itemize}
