@@ -2,12 +2,9 @@
 
 \subsection{Migration types}
 
-\paragraph{Cold Migration} is the process of moving a virtual machine from one physical host to another while the virtual machine is powered off. This is the simplest form of migration and is often used for planned maintenance or to move a virtual machine to a different physical host. Cold migration is the most reliable form of migration as there is no risk of data loss or corruption. However, it does require downtime for the virtual machine, which may not be acceptable for some applications.
+\paragraph{Cold/Offline Migration} is the process of moving a virtual machine from one physical host to another while the virtual machine is powered off. This is the simplest form of migration and is often used for planned maintenance or to move a virtual machine to a different physical host. Cold migration is the most reliable form of migration as there is no risk of data loss or corruption. However, it does require downtime for the virtual machine, which may not be acceptable for some applications.
 
-\paragraph{Hot Migration} is the process of moving a virtual machine from one physical host to another while the virtual machine is still running. This is a more complex form of migration than cold migration, as it requires the virtual machine to be transferred while it is still in use. Hot migration is often used for load balancing, disaster recovery, or to move a virtual machine to a different physical host without downtime. Hot migration is more complex than cold migration and carries a higher risk of data loss or corruption, but it can be performed without downtime for the virtual machine.
-
-
-
+\paragraph{Hot/Online/Live Migration} is the process of moving a virtual machine from one physical host to another while the virtual machine is still running. This is a more complex form of migration than cold migration, as it requires the virtual machine to be transferred while it is still in use. Hot migration is often used for load balancing, disaster recovery, or to move a virtual machine to a different physical host without downtime. Hot migration is more complex than cold migration and carries a higher risk of data loss or corruption, but it can be performed without downtime for the virtual machine.
 
 \subsection{Migrating between different hypervisors}
 
