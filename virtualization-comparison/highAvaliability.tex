@@ -1,9 +1,9 @@
 \section{HA}
 
 \subsection{Proxmox ha-manager}
-Proxmox provides the ha-manager for high avalibility. ha-manager automatically detects errors and starts the service on a different node in the same cluster. The failover time is about 2 minutes, meaning that you can not get more an 99.999\% avalibility.
+Proxmox provides the ha-manager for high availability. ha-manager automatically detects errors and starts the service on a different node in the same cluster. The failover time is about 2 minutes, meaning that you can not get more an 99.999\% availability.
 \\
-Proxmox provides the following list of criteria for high avalibility:
+Proxmox provides the following list of criteria for high availability:
 
 \begin{itemize}
     \item at least three cluster nodes (to get reliable quorum)
@@ -19,7 +19,7 @@ In vSphere a Master Host gets elected inside every vSphere HA cluster, the Maste
 \\\\
 Compared to Proxmox vSphere HA offers additional settings. In vSphere you can set restart priorities for virtual machines, so that more important virtual machines moved off a failed host are started first. You can also set the isolation response, which defines what should happen if a host looses connection to the rest of the cluster. The isolation response can be set to power off, shut down or leave the virtual machines running.
 \\
-While vShpere does not provide an official number for the expected amount of downtime, its is probably in the same ballpark as Proxmox, around 2 minutes downtime or 99.999\% avalibility.
+While vShpere does not provide an official number for the expected amount of downtime, its is probably in the same ballpark as Proxmox, around 2 minutes downtime or 99.999\% availability.
 
 \subsection{vSphere Fault Tolerance}
 
