@@ -1,3 +1,5 @@
+\section{Snapshots}
+
 A snapshot stores the state of a virtual machine at a specific point in time. This allows you to revert to that state, should you need to. Unlike backups which store the entire state of the virtual machine, snapshots only store the changes made since the snapshot was taken.
 \\\\
 The snapshot feature is very similar in Proxmox and vSphere. Both support making extensive snapshot trees, where you can have snapshots of a snapshot of a snapshot including different branches. You can choose wether to also snapshot the memory state of the VM or not. In Proxmox the VM disk must either be stored as qcow2 image avalible to file level storage, or on a storage type that supprts snapshots. For a complete list see~\ref{tab:storageTable}.
