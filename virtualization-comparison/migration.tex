@@ -62,7 +62,7 @@ Proxmox supports online/live and offline migration of VMs between nodes in a clu
     \item \textbf{Memory}: Make sure the target host has enough memory to accommodate the virtual machine.
 \end{itemize}
 
-\paragraph{Migrating} to another node can be accomplished by using the CLI or the Web-UI. In the Web-UI it is done by selecting the VM and clicking the migrate button. Disks are either shared or copied early so only the memory and VM state remaing to be synced. The VM will then be moved to another node in the cluster without downtime. Offline migration is also easily possible by shutting down the VM and then migrating it.\newline
+\paragraph{Migrating} to another node can be accomplished by using the CLI or the Web-UI. In the Web-UI it is done by selecting the VM and clicking the migrate button. Disks are either shared or copied early so only the memory and VM state remains to be synced. The VM will then be moved to another node in the cluster without downtime. Offline migration is also easily possible by shutting down the VM and then migrating it.\newline
 Proxmox also supports shared storage, which allows VMs to be migrated between nodes without copying the disk. This is useful for VMs that require high availability or for load balancing. This greatly reduces the time required to migrate a VM, as only the memory and VM state need to be transferred between nodes.
 
 \subsubsection{VMware}
