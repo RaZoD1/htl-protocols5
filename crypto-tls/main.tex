@@ -47,7 +47,27 @@
 
 \maketitle % Print the title
 
-\section{TLS 1.2/1.3 Overview} 
+\section{TLS 1.2/1.3 Overview}
+
+Transport Layer Security (TLS) is a cryptographic protocol used for providing secure communication over an insecure network, like the internet. TSL provides security, confidentiality authenticate and integrity. TSL builds on top of the now-deprecated Secure Sockets Layer (SSL) protocol and does not clearly fit one OSI-layer. Depending on who you ask TLS can be a layer 4, 6 or 7 protocol. The protocol uses TCP, but there is also a UDP equivalent called Datagram Transport Layer Security (DTLS). DTLS is sometimes used for VPNs but in general used way less than TSL. TSL has a wide range of use cases, from email to voice over IP or web browsing.
+\\\\
+To keep its security promise TLS has to keep being developed and new versions get released as the older versions become insecure and get deprecated.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|l|}
+        \hline
+        \textbf{Version} & \textbf{Year} & \textbf{Status} \\ \hline
+        TLS 1.0 (insecure) & 1999 & Deprecated in 2021 (RFC 8996) \\ \hline
+        TLS 1.1 (insecure) & 2006 & Deprecated in 2021 (RFC 8996) \\ \hline
+        TLS 1.2 & 2008 & In use since 2008 \\ \hline
+        TLS 1.3 & 2018 & In use since 2018 \\ \hline
+    \end{tabular}
+    \caption{TLS Versions and Status}
+    \label{tab:tls_versions}
+\end{table}
+
+
 
 \section{Protocols}
 
