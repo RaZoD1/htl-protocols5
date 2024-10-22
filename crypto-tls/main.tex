@@ -56,7 +56,7 @@
 
 \section{TLS 1.2/1.3 Overview}
 
-Transport Layer Security (TLS) is a cryptographic protocol used for providing secure communication over an insecure network, like the internet. TSL provides security, confidentiality authenticate and integrity. TSL builds on top of the now-deprecated Secure Sockets Layer (SSL) protocol and does not clearly fit one OSI-layer. Depending on who you ask TLS can be a layer 4, 6 or 7 protocol. The protocol uses TCP, but there is also a UDP equivalent called Datagram Transport Layer Security (DTLS). DTLS is sometimes used for VPNs but in general used way less than TSL. TSL has a wide range of use cases, from email to voice over IP or web browsing.
+Transport Layer Security (TLS) is a cryptographic protocol used for providing secure communications over an insecure network, like the internet. TSL provides security, confidentiality authenticate and integrity. TSL builds on top of the now-deprecated Secure Sockets Layer (SSL) protocol and does not clearly fit one OSI-layer. Depending on who you ask TLS can be a layer 4, 6 or 7 protocol. The protocol uses TCP, but there is also a UDP equivalent called Datagram Transport Layer Security (DTLS). DTLS is sometimes used for VPNs but in general used less than TSL. TSL has a wide range of use cases, from email to voice over IP or web browsing.
 \\\\
 To keep its security promise TLS has to keep being developed and new versions get released as the older versions become insecure and get deprecated.
 
@@ -79,6 +79,10 @@ To keep its security promise TLS has to keep being developed and new versions ge
 \section{Protocols}
 
 \subsection{TLS 1.2}
+
+TLS 1.2 was released in 2008 and is still considered to be secure. Its biggest change compared to TLS 1.1 is the replacement of the MD5 and SHA-1 hash functions with SHA-256 for all security uses. Which is also the reason why TSL 1.2 is still secure and TLS 1.1 is not. However TLS 1.2 still can still use a MD5 or SHA-1 HMAC for data integrity. TLS 1.2 is still widely used and supported by most modern web browsers and servers. The protocol is defined in RFC 5246.
+\\\\
+In 2011 refinements defined in RFC 6176 removed the backward compatibility with SSL 2.0.
 
 \subsection{TLS 1.3}
 
