@@ -91,7 +91,7 @@ After hitting the save button and applying the changes, logs should start to app
 
 To have a consistent time on all devices, it is a good idea to use NTP. 
 
-\textbf{Proxmox VE} runs \textit{chrony} as an NTP client by default. The configuration can be found in the \textit{/etc/chrony/chrony.conf} file. It is condigure for a pool of global time-server. The default configuration should be sufficient for most use cases.
+\textbf{Proxmox VE} runs \textit{chrony} as an NTP client by default. The configuration can be found in the \textit{/etc/chrony/chrony.conf} file. It is configured to use a pool of global time-servers. The default configuration should be sufficient for most use cases.
 
 \textbf{OPNsense} also runs an NTP service by default. The configuration can be found in the web interface under Services $\rightarrow$ Network time $\rightarrow$ General. It uses a pool of 4 opnsense time servers by default.
 \begin{figure}[H]
