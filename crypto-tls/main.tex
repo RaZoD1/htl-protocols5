@@ -74,31 +74,74 @@ To keep its security promise TLS has to keep being developed and new versions ge
     \label{tab:tls_versions}
 \end{table}
 
+\subsection{TLS supported ciphers}
+\label{sec:tls_supported_ciphers}
+
+These are the supported ciphers for the different TLS versions. The table shows which ciphers are secure and which are not. The information is taken from wikipedia. This table will be used later to compare the security of the different TLS versions and supported ciphers.
+
+\begin{table}[h!]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{|p{2cm}|p{3cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+        \hline
+        \textbf{Type} & \textbf{Algorithm} & \textbf{TLS 1.0} & \textbf{TLS 1.1} & \textbf{TLS 1.2} & \textbf{TLS 1.3} \\ \hline
+        
+        \multirow{6}{*}{Block} & AES GCM & — & — & Secure & Secure \\ \cline{2-6}
+         & AES CCM & — & — & Secure & Secure \\ \cline{2-6}
+         & AES CBC & Insecure & Depends on mitigations & Depends on mitigations & — \\ \cline{2-6}
+         & Camellia GCM & — & — & Secure & — \\ \cline{2-6}
+         & Camellia CBC & Insecure & Depends on mitigations & Depends on mitigations & — \\ \cline{2-6}
+         & ARIA GCM & — & — & Secure & — \\ \cline{2-6}
+         & ARIA CBC & — & Depends on mitigations & Depends on mitigations & — \\ \cline{2-6}
+         & SEED CBC & Insecure & Depends on mitigations & Depends on mitigations & — \\ \cline{2-6}
+         & 3DES EDE CBC & Insecure & Insecure & Insecure & — \\ \cline{2-6}
+         & GOST R 34.12-2015 Magma CTR & — & — & Insecure & — \\ \cline{2-6}
+         & GOST R 34.12-2015 Kuznyechik CTR & — & — & Secure & — \\ \cline{2-6}
+         & GOST R 34.12-2015 Magma MGM & — & — & — & Insecure \\ \cline{2-6}
+         & GOST R 34.12-2015 Kuznyechik MGM & — & — & — & Secure \\ \cline{2-6}
+         & IDEA CBC & Insecure & Insecure & Insecure & — \\ \cline{2-6}
+         & DES CBC (56) & Insecure & Insecure & Insecure & — \\ \cline{2-6}
+         & DES CBC (40) & Insecure & Insecure & — & — \\ \cline{2-6}
+         & RC2 CBC & Insecure & Insecure & — & — \\ \hline
+         
+        \multirow{2}{*}{Stream} & ChaCha20-Poly1305 & — & — & Secure & Secure \\ \cline{2-6}
+         & RC4 (128) & Insecure & Insecure & Insecure & — \\ \cline{2-6}
+         & RC4 (40) & Insecure & Insecure & — & — \\ \hline
+         
+        None & Null & Insecure & Insecure & Insecure & — \\ \hline
+    \end{tabular}
+    \caption{Protocol Version Compatibility of Various Ciphers}
+\end{table}
 
 
 \section{Protocols}
 
 \subsection{TLS 1.2}
 
-TLS 1.2 was released in 2008 and is still considered to be secure. Its biggest change compared to TLS 1.1 is the replacement of the MD5 and SHA-1 hash functions with SHA-256 for all security uses. Which is also the reason why TSL 1.2 is still secure and TLS 1.1 is not. However TLS 1.2 can still use a MD5 or SHA-1 HMAC for data integrity. TLS 1.2 is still widely used and supported by most modern web browsers and servers. The protocol is defined in RFC 5246.
+TLS 1.2 was released in 2008 and is still considered to be secure, depending on the cipher used. Its biggest change compared to TLS 1.1 is the replacement of the MD5 and SHA-1 hash functions with SHA-256 for all security uses. However TLS 1.2 can still use a MD5 or SHA-1 HMAC for data integrity. TLS 1.2 is still widely used and supported by most modern web browsers and servers. The protocol is defined in RFC 5246.
 \\\\
 In 2011 refinements defined in RFC 6176 removed the backward compatibility with SSL 2.0.
 
 \subsection{TLS 1.3}
 
-TLS 1.3 was the largest change in the history of TLS. The TLS 1.3 requirement for forward secrecy meant that a lot of the previously supported key exchange/agreement algorithms were no longer supported. The only key exchange/agreement algorithms supported by TLS 1.3 are different versions of Diffie-Hellman (DH), Elliptic Curve Diffie-Hellman (ECDH) and one algorithm from the Russian GOST standards organization. The supported ciphers were also reduced to only 4 still secure ciphers. Including AES GCM, AES CCM, GOST R34.12 MGM and the stream cipher ChaCha20. The protocol is defined in RFC 8446.
+TLS 1.3 was the largest change in the history of TLS, defined in RFC 8446. The TLS 1.3 requirement for forward secrecy meant that a lot of the previously supported key exchange/agreement algorithms were no longer supported. The only key exchange/agreement algorithms supported by TLS 1.3 are different versions of Diffie-Hellman (DH), Elliptic Curve Diffie-Hellman (ECDH) and one algorithm from the Russian GOST standards organization. 
 \\\\
-The algorithms used for data integrity was reduced to a single one, AEAD.
+With previous TLS versions the encryption and data integrity algorithms were separate. The MAC was computed and appended to the data, then data+MAC were encrypted. However, this has security downsides. TLS 1.3 combined the encryption and data integrity algorithms, only supporting ciphers that use AEAD for data integrity. The supported cipher can be seen in \ref{sec:tls_supported_ciphers}.
 \\\\
-Where as the security of TLS 1.2 depends on which cipher and key exchange method is used, TLS 1.3 only supports secure methods.
+One of the other major changes, the new handshake protocol, will be discussed in \ref{sec:tls_handshake}.
+\\\\
+Where as the security of TLS 1.2 depends on the used cipher and key exchange method, TLS 1.3 only supports currently secure methods (expect one of the Russian GOST cithers, which is likely used very little anyway).
 
-\subsubsection{TLS 1.3 Compared to Previous Versions}
+\subsubsection{Forward secrecy}
+
+Because forward secrecy, sometimes also called perfect forward secrecy is a major change with TLS 1.3 it is worth explaining what it is. Forward secrecy means that if the long term secrets used for the session, like the private key, are compromised, and the attacker recorded the entire encrypted session, they still can't decrypt the session.
+\\\\
+Forward secrecy is achieved by using a version of the Diffie Hellman key exchange instead of the client generating a secret key and sending it to the server encrypted with the server's public key. Because the server and client never send the secret key over the network, and the server's private key is no longer a factor in the key generation, an attacker can't decrypt the session if they get the long term secrets.
 
 \input{subprotocols.tex}
 
-\section{TLS 1.2 vs TLS 1.3}
-
 \section{TLS 1.2/1.3 Handshake}
+\label{sec:tls_handshake}
 
 \section{Security}
 
