@@ -80,11 +80,17 @@ To keep its security promise TLS has to keep being developed and new versions ge
 
 \subsection{TLS 1.2}
 
-TLS 1.2 was released in 2008 and is still considered to be secure. Its biggest change compared to TLS 1.1 is the replacement of the MD5 and SHA-1 hash functions with SHA-256 for all security uses. Which is also the reason why TSL 1.2 is still secure and TLS 1.1 is not. However TLS 1.2 still can still use a MD5 or SHA-1 HMAC for data integrity. TLS 1.2 is still widely used and supported by most modern web browsers and servers. The protocol is defined in RFC 5246.
+TLS 1.2 was released in 2008 and is still considered to be secure. Its biggest change compared to TLS 1.1 is the replacement of the MD5 and SHA-1 hash functions with SHA-256 for all security uses. Which is also the reason why TSL 1.2 is still secure and TLS 1.1 is not. However TLS 1.2 can still use a MD5 or SHA-1 HMAC for data integrity. TLS 1.2 is still widely used and supported by most modern web browsers and servers. The protocol is defined in RFC 5246.
 \\\\
 In 2011 refinements defined in RFC 6176 removed the backward compatibility with SSL 2.0.
 
 \subsection{TLS 1.3}
+
+TLS 1.3 was the largest change in the history of TLS. The TLS 1.3 requirement for forward secrecy meant that a lot of the previously supported key exchange/agreement algorithms were no longer supported. The only key exchange/agreement algorithms supported by TLS 1.3 are different versions of Diffie-Hellman (DH), Elliptic Curve Diffie-Hellman (ECDH) and one algorithm from the Russian GOST standards organization. The supported ciphers were also reduced to only 4 still secure ciphers. Including AES GCM, AES CCM, GOST R34.12 MGM and the stream cipher ChaCha20. The protocol is defined in RFC 8446.
+\\\\
+The algorithms used for data integrity was reduced to a single one, AEAD.
+\\\\
+Where as the security of TLS 1.2 depends on which cipher and key exchange method is used, TLS 1.3 only supports secure methods.
 
 \subsubsection{TLS 1.3 Compared to Previous Versions}
 
