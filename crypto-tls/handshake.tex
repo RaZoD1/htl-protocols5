@@ -25,4 +25,11 @@ The handshake can be separated into four phases:
     \\\\
     The server and client then compute a common secret, using the random numbers they shared and the pre-master secret. The common secret is also called master secret and is used to derive all other keys, like the session key or MAC key.
     
+    \item The Clients sends a \texttt{ChangeCipherSpec} message, which signals that the client will start using the negotiated cipher and compression method.
+    \\
+    The client sends a encrypted \texttt{Finished} message, which contains a hash of all previous messages. The server will then try to decrypt the message and check if the hash is correct. If the hash is not correct the handshake failed.
+
+    \item The server sends a \texttt{ChangeCipherSpec} message. The process is the same as in the client phase, just with the roles reversed.
+    
+    \item Application phase: The handshake is complete and the server and client can now send application data.
 \end{enumerate}
