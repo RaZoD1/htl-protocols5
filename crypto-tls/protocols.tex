@@ -1,3 +1,5 @@
+TLS 1.0 and 1.1 are deprecated and considered insecure, due to using insecure cyphers and hash algorithms for security purposes. Because TLS 1.0 and 1.1. should not be used anymore, they will not be discussed here.
+
 \subsection{TLS 1.2}
 
 TLS 1.2 was released in 2008 and is still considered to be secure, depending on the cipher used. Its biggest change compared to TLS 1.1 is the replacement of the MD5 and SHA-1 hash functions with SHA-256 for all security uses. However TLS 1.2 can still use a MD5 or SHA-1 HMAC for data integrity. TLS 1.2 is still widely used and supported by most modern web browsers and servers. The protocol is defined in RFC 5246.
@@ -15,5 +17,5 @@ One of the other major changes, the new handshake protocol, will be discussed se
 Where as the security of TLS 1.2 depends on the used cipher and key exchange method, TLS 1.3 only supports currently secure methods (expect one of the Russian GOST cithers, which is likely used very little anyway).
 \\\\
 Forward secrecy, sometimes also called perfect forward secrecy is a major change with TLS 1.3. Forward secrecy means that if the long term secrets used for the session, like the private key, are compromised, and the attacker recorded the entire encrypted session, they still can't decrypt the session.
-\\\\
+\\
 Forward secrecy is achieved by using a version of the Diffie Hellman key exchange instead of the client generating a secret key and sending it to the server encrypted with the server's public key. Because the server and client never send the secret key over the network, and the server's private key is no longer a factor in the key generation, an attacker can't decrypt the session if they get the long term secrets.
