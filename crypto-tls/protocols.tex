@@ -1,20 +1,25 @@
-TLS 1.0 and 1.1 are deprecated and considered insecure, due to using insecure cyphers and hash algorithms for security purposes. Because TLS 1.0 and 1.1. should not be used anymore, they will not be discussed here.
+\subsection{TLS 1.0 and 1.1}
+TLS 1.0 was only a minor change from SSL 3.0, according to Tim Eireks, the minor changes and the renaming from ``SSL'' to ``TLS'' were a face-saving gesture to Microsoft, ``so it wouldn't look [like] the IETF was just rubberstamping Netscape's protocol''. The protocol is defined in RFC 2246.
+\\
+TLS 1.1 was only a minor change. The changes concerning security were the replacement of the implicit initial vector (IV) with an explicit IV, to protect against cipher block chaining attacks, and changing the handling of padding errors. The protocol is defined in RFC 4346.
+\\\\
+Both TLS 1.0 and 1.1 were deprecated in 2021, in RFC 8996, because both versions used SHA-1 for security purposes, and lack support for modern ciphers.
 
 \subsection{TLS 1.2}
 
-TLS 1.2 was released in 2008 and is still considered to be secure, depending on the cipher used. Its biggest change compared to TLS 1.1 is the replacement of the MD5 and SHA-1 hash functions with SHA-256 for all security uses. However TLS 1.2 can still use a MD5 or SHA-1 HMAC for data integrity. TLS 1.2 is still widely used and supported by most modern web browsers and servers. The protocol is defined in RFC 5246.
+TLS 1.2 was released in 2008 and is still considered to be secure, depending on the cipher used. Its biggest change compared to TLS 1.1 is the replacement of the MD5 and SHA-1 hash functions with SHA-256 for all security uses and the support for more modern ciphers like AES GCM. However TLS 1.2 can still use a MD5 or SHA-1 HMAC for data integrity. TLS 1.2 is still widely used and supported by most modern web browsers and servers. The protocol is defined in RFC 5246.
 \\\\
 In 2011 refinements defined in RFC 6176 removed the backward compatibility with SSL 2.0.
 
 \subsection{TLS 1.3}
 
-TLS 1.3 was the largest change in the history of TLS, defined in RFC 8446. The TLS 1.3 requirement for forward secrecy meant that a lot of the previously supported key exchange/agreement algorithms were no longer supported. The only key exchange/agreement algorithms supported by TLS 1.3 are different versions of Diffie-Hellman (DH), Elliptic Curve Diffie-Hellman (ECDH) and one algorithm from the Russian GOST standards organization. 
+TLS 1.3 was the largest change in the history of TLS. The TLS 1.3 requirement for forward secrecy meant that a lot of the previously supported key exchange/agreement algorithms were no longer supported. The only key exchange/agreement algorithms supported by TLS 1.3 are different versions of Diffie-Hellman (DH), Elliptic Curve Diffie-Hellman (ECDH) and one algorithm from the Russian GOST standards organization. The protocol is defined in RFC 8446.
 \\\\
 With previous TLS versions the encryption and data integrity algorithms were separate. The MAC was computed and appended to the data, then data+MAC were encrypted. However, this has security downsides. TLS 1.3 combined the encryption and data integrity algorithms, only supporting ciphers that use AEAD for data integrity. The supported cipher can be seen in \ref{sec:tls_supported_ciphers}.
 \\\\
 One of the other major changes, the new handshake protocol, will be discussed separately in \ref{sec:tls_handshake}.
 \\\\
-Where as the security of TLS 1.2 depends on the used cipher and key exchange method, TLS 1.3 only supports currently secure methods (expect one of the Russian GOST cithers, which is likely used very little anyway).
+Where as the security of TLS 1.2 depends on the used cipher and key exchange method, TLS 1.3 only supports currently secure methods (expect one of the Russian GOST ciphers).
 \\\\
 Forward secrecy, sometimes also called perfect forward secrecy is a major change with TLS 1.3. Forward secrecy means that if the long term secrets used for the session, like the private key, are compromised, and the attacker recorded the entire encrypted session, they still can't decrypt the session.
 \\
