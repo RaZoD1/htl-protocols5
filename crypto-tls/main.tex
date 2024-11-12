@@ -56,7 +56,7 @@
 
 \section{TLS 1.2/1.3 Overview}
 
-Transport Layer Security (TLS) is a cryptographic protocol used for providing secure communications over an insecure network, like the internet. TSL provides security, confidentiality authenticate and integrity. TSL builds on top of the now-deprecated Secure Sockets Layer (SSL) protocol and does not clearly fit one OSI-layer. Depending on who you ask TLS can be a layer 4, 6 or 7 protocol. The protocol uses TCP, but there is also a UDP equivalent called Datagram Transport Layer Security (DTLS). DTLS is sometimes used for VPNs but in general used less than TSL. TSL has a wide range of use cases, from email to voice over IP or web browsing.
+Transport Layer Security (TLS) is a cryptographic protocol used for providing secure communications over an insecure network, like the internet. TSL provides security, confidentiality authenticate and integrity. TSL builds on top of the now-deprecated Secure Sockets Layer (SSL) protocol and does not clearly fit one OSI-layer. Depending on who you ask TLS can be either a layer 4, 6 or 7 protocol. TLS uses TCP, but there is also a UDP equivalent called Datagram Transport Layer Security (DTLS). DTLS is sometimes used for VPNs but in general used less than TSL. TSL has a wide range of use cases, from email to voice over IP or web browsing.
 \\\\
 To keep its security promise TLS has to keep being developed and new versions get released as the older versions become insecure and get deprecated.
 
@@ -115,33 +115,13 @@ These are the supported ciphers for the different TLS versions. The table shows 
 
 
 \section{Protocols}
-
-\subsection{TLS 1.2}
-
-TLS 1.2 was released in 2008 and is still considered to be secure, depending on the cipher used. Its biggest change compared to TLS 1.1 is the replacement of the MD5 and SHA-1 hash functions with SHA-256 for all security uses. However TLS 1.2 can still use a MD5 or SHA-1 HMAC for data integrity. TLS 1.2 is still widely used and supported by most modern web browsers and servers. The protocol is defined in RFC 5246.
-\\\\
-In 2011 refinements defined in RFC 6176 removed the backward compatibility with SSL 2.0.
-
-\subsection{TLS 1.3}
-
-TLS 1.3 was the largest change in the history of TLS, defined in RFC 8446. The TLS 1.3 requirement for forward secrecy meant that a lot of the previously supported key exchange/agreement algorithms were no longer supported. The only key exchange/agreement algorithms supported by TLS 1.3 are different versions of Diffie-Hellman (DH), Elliptic Curve Diffie-Hellman (ECDH) and one algorithm from the Russian GOST standards organization. 
-\\\\
-With previous TLS versions the encryption and data integrity algorithms were separate. The MAC was computed and appended to the data, then data+MAC were encrypted. However, this has security downsides. TLS 1.3 combined the encryption and data integrity algorithms, only supporting ciphers that use AEAD for data integrity. The supported cipher can be seen in \ref{sec:tls_supported_ciphers}.
-\\\\
-One of the other major changes, the new handshake protocol, will be discussed in \ref{sec:tls_handshake}.
-\\\\
-Where as the security of TLS 1.2 depends on the used cipher and key exchange method, TLS 1.3 only supports currently secure methods (expect one of the Russian GOST cithers, which is likely used very little anyway).
-
-\subsubsection{Forward secrecy}
-
-Because forward secrecy, sometimes also called perfect forward secrecy is a major change with TLS 1.3 it is worth explaining what it is. Forward secrecy means that if the long term secrets used for the session, like the private key, are compromised, and the attacker recorded the entire encrypted session, they still can't decrypt the session.
-\\\\
-Forward secrecy is achieved by using a version of the Diffie Hellman key exchange instead of the client generating a secret key and sending it to the server encrypted with the server's public key. Because the server and client never send the secret key over the network, and the server's private key is no longer a factor in the key generation, an attacker can't decrypt the session if they get the long term secrets.
+\input{protocols.tex}
 
 \input{subprotocols.tex}
 
 \section{TLS 1.2/1.3 Handshake}
 \label{sec:tls_handshake}
+\input{handshake.tex}
 
 \section{Security}
 
@@ -165,7 +145,7 @@ Forward secrecy is achieved by using a version of the Diffie Hellman key exchang
 	\textbf{Bytes \textit{m}-(\textit{p}-1)} & \multicolumn{4}{c|}{MAC (optional)} \\ \hline
 	\textbf{Bytes \textit{p}-(\textit{q}-1)} & \multicolumn{4}{c|}{Padding (block ciphers only)} \\ \hline
 	\end{tabular}
-	\end{table}
+\end{table}
 	
 	
 	
