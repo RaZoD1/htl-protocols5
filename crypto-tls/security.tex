@@ -1,0 +1,49 @@
+
+\section{Security}
+
+
+\subsection{Security Features}
+
+
+TLS (Transport Layer Security) provides essential security features to protect data in transit over networks. Here are some of the most important features:
+
+\begin{itemize}
+    \item \textbf{Encryption:} TLS encrypts data transmitted between clients and servers, ensuring confidentiality. This encryption prevents unauthorized parties from reading sensitive information such as passwords, personal data, or financial details. TLS supports multiple encryption algorithms, with stronger algorithms providing higher security.
+
+    \item \textbf{Authentication:} TLS uses digital certificates to verify the identities of both the client and server, which helps prevent impersonation attacks. Typically, the server presents a certificate issued by a trusted Certificate Authority (CA), allowing the client to authenticate the server’s identity. Mutual authentication (where both client and server authenticate each other) is also supported when required.
+
+    \item \textbf{Integrity:} TLS ensures data integrity through the use of message authentication codes (MACs). These MACs detect any changes to data during transmission, protecting it from tampering by unauthorized parties. This ensures that the message received is the same as the message sent, without alteration.
+
+    \item \textbf{Forward Secrecy:} Forward secrecy (or Perfect Forward Secrecy) prevents an attacker from decrypting past sessions even if they obtain the private key of the server in the future. This is achieved by generating unique session keys for each connection, which are not derived from the server’s long-term private key. Diffie-Hellman key exchanges are commonly used to provide this feature.
+
+    \item \textbf{Key Exchange Protocols:} TLS supports secure key exchange mechanisms to establish shared encryption keys between client and server. This process protects the keys from being intercepted by third parties during transmission. TLS typically supports several key exchange protocols, including RSA, Diffie-Hellman, and Elliptic Curve Diffie-Hellman (ECDHE), with the latter offering stronger security and forward secrecy.
+
+    \item \textbf{Session Resumption:} TLS allows clients and servers to resume previous secure sessions using session IDs or session tickets. This reduces the time and computational cost of establishing a new session, improving performance without compromising security. Resumed sessions maintain the same security guarantees as a fully negotiated session.
+
+\end{itemize}
+
+Together, these security features enable TLS to provide a reliable framework for secure data transmission over networks, maintaining confidentiality, authentication, and data integrity for modern internet communications.
+
+
+
+\subsection{Attacks}
+Even though TLS is an inherently secure protocol, it is not immune to attacks. There are several known attacks against TLS, which were published in RFC 7457 by IETF in February 2015. Here are some of the most notable attacks:
+
+\begin{itemize}
+    \item \textbf{BEAST (Browser Exploit Against SSL/TLS):} This attack exploits a vulnerability in SSL/TLS 1.0 by using a known weakness in cipher block chaining (CBC) mode. Attackers can decrypt HTTPS cookies, allowing them to hijack sessions and impersonate users. BEAST primarily affects older versions of TLS and requires access to the same network as the target, often making it effective in man-in-the-middle (MitM) scenarios.
+
+    \item \textbf{CRIME (Compression Ratio Info-leak Made Easy):} The CRIME attack targets TLS compression mechanisms by exploiting data compression techniques to leak secure information, particularly session cookies. Attackers can obtain session cookies by observing the change in the size of encrypted requests, allowing them to hijack sessions. As a result, most browsers and servers have since disabled TLS-level compression.
+
+    \item \textbf{BREACH (Browser Reconnaissance and Exfiltration via Adaptive Compression of Hypertext):} BREACH is a variant of the CRIME attack but specifically targets HTTP compression rather than TLS compression. This attack enables an attacker to recover encrypted data from HTTPS requests, potentially revealing sensitive information. Like CRIME, it is mitigated by disabling HTTP compression for sensitive data.
+
+    \item \textbf{Heartbleed:} Heartbleed is a severe vulnerability in the OpenSSL cryptographic library, specifically in its implementation of the TLS heartbeat extension. It allows an attacker to read memory from the affected server, potentially leaking sensitive data such as private keys, session tokens, and other critical information. The attack impacted millions of servers and led to widespread patching and security updates.
+
+    \item \textbf{POODLE (Padding Oracle On Downgraded Legacy Encryption):} This attack exploits weaknesses in SSL 3.0 and some older versions of TLS when cipher block chaining (CBC) is used. POODLE allows an attacker to decrypt sensitive information by manipulating padding in CBC mode. Most modern browsers and servers now disable SSL 3.0 to mitigate this risk.
+
+    \item \textbf{FREAK (Factoring RSA Export Keys):} FREAK takes advantage of the vulnerability in certain implementations of TLS that allowed "export-grade" (weaker) encryption. Attackers can downgrade secure connections to use weaker 512-bit RSA keys, which can be easily cracked, exposing secure data. This attack emphasizes the importance of using strong cipher suites and avoiding export-grade encryption.
+
+    \item \textbf{Logjam:} Similar to FREAK, the Logjam attack downgrades the encryption strength of Diffie-Hellman key exchanges to a weaker 512-bit key. This downgrade makes it easier for attackers to decrypt traffic. Like FREAK, Logjam highlights the need for strong encryption and updated server configurations.
+
+    \item \textbf{RC4 Weakness:} TLS connections that use the RC4 cipher are vulnerable because RC4 has known statistical biases that can leak information about the encrypted data. Although once widely used, RC4 is now considered insecure and is no longer recommended for use in TLS.
+\end{itemize}
+
