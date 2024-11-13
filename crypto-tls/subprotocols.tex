@@ -1,8 +1,8 @@
 \section{Subprotocols}
 
-TLS is a complex protocol that consists of several subprotocols. Each subprotocol has its own purpose and is used in a specific part of TLS. Additionally these subprotocols can be assigned to 2 layers.
+Because TLS is a complex protocol it was split into several subprotocols. Each subprotocol has its own purpose and is used in a specific part of TLS. Additionally these subprotocols operate in 2 layers.
 \\
-The first layer consists of the TLS Record Protocol and is responsible for encapsulating all other subprotocols. The second layer consists of the Handshake Protocol, Alert Protocol, ChangeCipherSpec Protocol and Application Data Protocol. These subprotocols are used to establish a secure connection between the client and the server, and to exchange data securely.
+The first/lower layer consists of the TLS Record Protocol and is responsible for encapsulating all other subprotocols. The second/upper layer consists of the Handshake Protocol, Alert Protocol, ChangeCipherSpec Protocol and Application Data Protocol. These subprotocols are used to establish a secure connection between the client and the server, and to exchange data securely.
 
 
 \subsection{TLS Record Protocol}
