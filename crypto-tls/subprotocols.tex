@@ -1,10 +1,74 @@
 \section{Subprotocols}
 
-\subsection{Handshake Protocol}
+TLS is a complex protocol that consists of several subprotocols. Each subprotocol has its own purpose and is used in a specific part of TLS. Additionally these subprotocols can be assigned to 2 layers.
+\\
+The first layer consists of the TLS Record Protocol and is responsible for encapsulating all other subprotocols. The second layer consists of the Handshake Protocol, Alert Protocol, ChangeCipherSpec Protocol and Application Data Protocol. These subprotocols are used to establish a secure connection between the client and the server, and to exchange data securely.
 
-\subsection{Alert Protocol}
 
-\subsection{ChangeCipherSpec Protocol}
+\subsection{TLS Record Protocol}
 
-\subsection{Application Protocol}
+The TLS Record Protocol is the lowest layer of the TLS protocol stack. It is responsible for encapsulating all other subprotocols. The Record Protocol is used to transmit data securely between the client and the server. The data is end-to-end encrypted, authenticated and integrity protected. The Record Protocol is used to encapsulate the Handshake Protocol, Alert Protocol, ChangeCipherSpec Protocol and Application Data Protocol.
 
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+	\hline
+	\textbf{Offset} & \textbf{Byte+0} & \textbf{Byte+1} & \textbf{Byte+2} & \textbf{Byte+3} \\ \hline
+	\textbf{Byte 0} & Content type & \multicolumn{3}{c|}{-} \\ \hline
+	\multirow{2}{*}{\textbf{Bytes 1-4}} & \multicolumn{2}{c|}{Legacy version} & \multicolumn{2}{c|}{Length} \\ \cline{2-5} 
+	 & (Major) & (Minor) & (bits 15-8) & (bits 7-0) \\ \hline
+	\textbf{Bytes 5-(\textit{m}-1)} & \multicolumn{4}{c|}{Protocol message(s)} \\ \hline
+	\textbf{Bytes \textit{m}-(\textit{p}-1)} & \multicolumn{4}{c|}{MAC (optional)} \\ \hline
+	\textbf{Bytes \textit{p}-(\textit{q}-1)} & \multicolumn{4}{c|}{Padding (block ciphers only)} \\ \hline
+	\end{tabular}
+	\caption{TLS record format, general}
+    \label{tab:tls_record_format}
+\end{table}
+	
+The table \ref{tab:tls_record_format} shows the general format of a TLS record. The record consists of:
+\begin{itemize}
+    \item \textbf{Content type:} The type of the protocol message (ChangeCipherSpec, Alert, Handshake, Application, Heartbeat).
+    \item \textbf{Legacy version:} The version of the protocol prior to TLS 1.3. For TLS 1.3, this field must set to 0x0303 and the version is negotiated in the handshake.
+    \item \textbf{Length:} The length of the protocol message(s) MAC and padding combined. The maximum length is 2\^14 bytes (16KiB)
+    \item \textbf{Protocol message(s):} One or more protocol messages. (may be encrypted)
+    \item \textbf{MAC:} The message authentication code. (optional)
+    \item \textbf{Padding:} Padding for block ciphers. (block ciphers only)
+\end{itemize}
+
+
+\subsection{TLS Handshake Protocol}
+
+The TLS Handshake Protocol is based on the TLS Record Protocol and is used in most messages of the setup of a TLS session. For a handshake the Content Type field is set to the corresponding value for the Handshake Protocol (0x16) and multiple handshake blocks can be encapsulated in the Protocol message(s) field of the record. 
+
+One handshake block consists of the following fields:
+\begin{itemize}
+    \item \textbf{Message Type:} the type of the handshake message (HelloRequest, ClientHello, ServerHello, NewSessionTicket, EncryptedExtensions, Certificate, ServerKeyExchange, CertificateRequest, ServerHelloDone, CertificateVerify, ClientKeyExchange, Finished). (1 Byte)
+    \item \textbf{Handshake Message Data Length:} the length of the handshake message data. (3 Bytes)
+    \item \textbf{Handshake Message Data:} the data of the handshake message. (variable length)
+\end{itemize}
+
+Multiple handshake blocks can be sent in one record, which is useful to reduce the number of records sent over the network. 
+
+\subsection{TLS Change Cipher Spec Protocol}
+
+The ChangeCipherSpec Protocol is the simplest of the subprotocols, as it only consists of a single message. The ChangeCipherSpec Protocol is used to signal to the other party that the following records will be encrypted with the CipherSuite negotiated in the handshake. 
+The ChangeCipherSpec Protocol contains a 1 byte message with the value 1. This message is sent in the Protocol message(s) field of the record and the Content Type field is set to the corresponding value for the ChangeCipherSpec Protocol (0x14).
+
+The reason ChangeCipherSpec was made into a separate subprotocol was, because it is not wanted for it to be sent alongside other messages in one record.  
+
+\subsection{TLS Alert Protocol}
+
+The TLS Alert Protocol can be used to signal to the other party that a problem occured. It can be send at any time during the connection to notify the other party of the reason of the alert. Usually after an alert is send, the connection is immediately closed or the other party responds with its own alert. However, if the alert is a warning, the connection can be continued if the receiving parties agrees to it. The Alert Protocol is based on the TLS Record Protocol and the Content Type field is set to the corresponding value for the Alert Protocol (0x15) and wraps the alert message in the Protocol message(s) field of the record.
+
+The Alert Protocol consists of the following fields:
+\begin{itemize}
+    \item \textbf{Level:} The level of the alert (warning or fatal). (1 Byte)
+    \item \textbf{Description:} defines which type of alert is sent (1 Byte)
+\end{itemize}
+
+There are several codes for the Description field, to specify the cause of the alert. For example Handshake Failure, Bad Certificate, Unkown CA, etc.
+
+\subsection{TLS Application Data Protocol}
+
+The TLS Application Data Protocol is used to transmit data of an underlying application. The Application Data Protocol is based on the TLS Record Protocol and the Content Type field is set to the corresponding value for the Application Data Protocol (0x17) and the application data is sent in the Protocol message(s) field of the record. The Application Data Protocol is used to transmit the actual data of the application, like the content of a website, a file or a message.
+Additonally the MAC and padding may be included in the record, depending on the cipher used.

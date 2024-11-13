@@ -56,7 +56,10 @@
 
 \section{TLS Overview}
 
-Transport Layer Security (TLS) is a cryptographic protocol used for providing secure communications over an insecure network, like the internet. TLS provides security, confidentiality, authenticity and integrity. TSL builds on top of the now-deprecated Secure Sockets Layer (SSL) protocol and does not clearly fit one OSI-layer. Depending on who you ask TLS can be either a layer 4, 6 or 7 protocol. TLS uses TCP, but there is also a UDP equivalent called Datagram Transport Layer Security (DTLS). DTLS is sometimes used for VPNs but in general used less than TLS. TLS has a wide range of use cases, from email to voice over IP or web browsing.
+Transport Layer Security (TLS) is a cryptographic protocol used for providing secure communications over an insecure network, like the internet. TLS provides security, confidentiality, authenticity and integrity. TSL builds on top of the now-deprecated Secure Sockets Layer (SSL) protocol and does not clearly fit one OSI-layer. Depending on who you ask TLS can be categorized as either one of the layers 4, 5, 6 and 7. 
+% Layer 5 (session layer): https://de.wikipedia.org/wiki/Transport_Layer_Security#TLS-Protokolle_im_Protokollstapel
+% Layer 6 (presentation layer): https://en.wikipedia.org/wiki/Transport_Layer_Security
+TLS uses TCP, but there is also a UDP equivalent called Datagram Transport Layer Security (DTLS). DTLS is sometimes used for VPNs but in general used less than TLS. TLS has a wide range of use cases, from email to voice over IP or web browsing.
 \\\\
 To keep its promise of security TLS has to keep being developed and new versions get released as the older versions become insecure and get deprecated. This table shows when each version was released and its current status.
 
@@ -129,24 +132,6 @@ This table shows the supported ciphers for the different TLS versions. It also s
 
 \subsection{Attacks}
 
-\section{TLS Record Format}
-
-
-\begin{table}[htbp]
-	\centering
-	\caption{TLS record format, general}
-	\begin{tabular}{|c|c|c|c|c|}
-	\hline
-	\textbf{Offset} & \textbf{Byte+0} & \textbf{Byte+1} & \textbf{Byte+2} & \textbf{Byte+3} \\ \hline
-	\textbf{Byte 0} & Content type & \multicolumn{3}{c|}{-} \\ \hline
-	\multirow{2}{*}{\textbf{Bytes 1-4}} & \multicolumn{2}{c|}{Legacy version} & \multicolumn{2}{c|}{Length} \\ \cline{2-5} 
-	 & (Major) & (Minor) & (bits 15-8) & (bits 7-0) \\ \hline
-	\textbf{Bytes 5-(\textit{m}-1)} & \multicolumn{4}{c|}{Protocol message(s)} \\ \hline
-	\textbf{Bytes \textit{m}-(\textit{p}-1)} & \multicolumn{4}{c|}{MAC (optional)} \\ \hline
-	\textbf{Bytes \textit{p}-(\textit{q}-1)} & \multicolumn{4}{c|}{Padding (block ciphers only)} \\ \hline
-	\end{tabular}
-\end{table}
-	
 	
 	
 
