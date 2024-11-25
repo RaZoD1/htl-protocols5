@@ -36,8 +36,13 @@ The handshake can be separated into four phases:
 
 This handshake requires 2 round trips, not including the TCP handshake, which causes quite a bit of latency before the client and server can start exchanging application data.
 \\\\
-The handshake for TLS 1.3 removes 1 round trip most of the time. Compared to the TLS 1.2 handshake the client includes guesses for which key exchange methode the server will use and the public keys for the gussed key exchange methods in the \texttt{ClientHello} message. If one of the guesses matches the server, it allows the server to send the \texttt{ServerHello}, Certificate and \texttt{Finished} message, without having to wait for a client response.
-\\
+The handshake for TLS 1.3 removes 1 round trip from the handshake most of the time. Compared to the TLS 1.2 handshake the client includes a list of its supported ciphers, DHE groups, including the cryptographic parameters used for DHE, signature algorithms and known pre shared keys in the \texttt{ClientHello} message. If there is no overlap between the servers and clients supported key exchange methods the server terminates the handshake. If there is an overlap the server sends the \texttt{ServerHello} with the selected key exchange method, Certificate, when authentication via Certificate is used, and \texttt{Finished} message.
+The client then sends the \texttt{Finished} message and the handshake is complete.
+
+If the server selects the DHE group and the client did not provide the parameters for the DHE group, the server will send a \texttt{HelloRetryRequest} message. The client then sends a new \texttt{ClientHello} message with the DHE parameters included. This adds an additional round trip to the handshake.
+
+The \texttt{ChangeCipherSpec} message has been removed entirely from the TLS 1.3 handshake, as it was deemed to be superfluous.
+
 TLS 1.3 also includes support for a 0 round trip data handshake. When the client and server have a pre shared key the client can include data in the first flight of data by appending it to the 1-RTT handshake.
 \\\\
 Because the key exchange is compute heavy, TLS offers a way to resume a session using session IDs. For this the client remembers the session ID and assiocates it with the IP and port combination of the server. When rebuidling the connection the client sends the session ID in the \texttt{ClientHello} message. The server then looks up the session ID and if it finds it, it can skip the key exchange and go straight to the application phase. This removes the need for the key exchange. Both sides must have the same master secret, preventing eavesdropping on the session ID. 
