@@ -94,6 +94,6 @@ root@ntsi:/etc/openvpn# openvpn --config home.conf
 
 The connection refused messages are because the office computer was not running the OpenVPN server at that time. The connection was established after the server was started. The connection was then closed by pressing Ctrl+C. The connection was established successfully, as shown by the "Initialization Sequence Completed" message.
 \\\\
-Before OpenVPN version 2.5 the default encryption cipher was Blowfish in CBC mode (BF-CBC).
+Before OpenVPN version 2.5 the default encryption cipher was Blowfish in CBC mode (BF-CBC). BF-CBC is considered insecure and should not be used anymore.
 
 OpenVPN version 2.5 introduced Negotiable Cipher Parameters (NCP), OpenVPN will try to use AES-256-GCM or AES-128-GCM by default if the negotiated cipher parameters (NCP) feature is enabled and both sides have a compatible cipher in their allowed list. If NCP is disabled or a common cipher can not be found, it will fall back to BF-CBC.
