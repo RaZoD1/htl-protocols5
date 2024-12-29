@@ -58,7 +58,8 @@ The allocation of IP addresses to OpenVPN clients in server mode varies dependin
 \begin{itemize}
 \item \textbf{Inefficient IP Usage}: The \texttt{net30} configuration allocates a /30 subnet to each client, which includes four IP addresses. Out of these, only two are actively utilized (one for the server and one for the client), leading to a 50\% utilization rate and significant wastage.
 \item \textbf{Increased Management Overhead}: Managing numerous individual /30 subnets can introduce complexity, especially when the requirement is for clients to communicate with each other. This mode is optimized for isolated connections rather than collaborative network environments.
-\item \textbf{Ideal Scenario}: The only reason to use \texttt{net30} is for supporting Windows clients before 2.0.9, which is incredibly rare nowadays. 
+\item \textbf{Compatibility}: The only reason to use \texttt{net30} is for supporting Windows clients before 2.0.9, which is incredibly rare nowadays. 
+\item \textbf{No Broadcast Domain}: There's no shared broadcast domain among clients. Broadcast traffic is limited to each client-server pair.
 \end{itemize}
 
 \subsubsection{Enabling Inter-Client Communication}
