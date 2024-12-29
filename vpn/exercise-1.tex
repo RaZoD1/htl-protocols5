@@ -63,6 +63,12 @@ The keys were generated using the following command:
 openvpn --genkey --secret static.key
 \end{minted}
 
+And then transferred to the other computer using scp:
+
+\begin{minted}{bash}
+scp static.key rdp@192.168.60.2:/home/rdp
+\end{minted}
+
 This is the entire connection buildup and breakdown process:
 
 \begin{minted}{bash}
