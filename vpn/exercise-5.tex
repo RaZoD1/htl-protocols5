@@ -1,0 +1,65 @@
+\nicebox{
+    This exercise sets up ethernet bridging using OpenVPN. This means that the VPN server will act as a bridge between the two networks, so that the WAN computer/client is on the same ethernet network as the LAN computer. So no routing is needed. The server will act as a switch, forwarding packets between the two networks.
+}
+
+
+To configure OpenVPN for ethernet bridging, we need to use the tap device instead of the tun device. The tap device is a virtual ethernet device, which can be used to bridge two ethernet networks. The tun device is a point-to-point device, which is used for routing.
+
+The tap device and the bridging to the physical ethernet device have to be setup. Luckily, OpenVPN provides a \texttt{bridge-start.sh} (and \texttt{bridge-stop.sh}) script that does this for us. We only need to set the variables in the script to match our network configuration:
+\begin{minted}{bash}
+# Define physical ethernet interface to be bridged
+# with TAP interface(s) above.
+eth="enp8s0"
+eth_ip="10.8.3.2"
+eth_netmask="255.255.255.0"
+eth_broadcast="10.8.3.255"
+\end{minted}
+
+Additionally the server configuration has to be changed to use the tap device and to bridge the tap device to the physical ethernet device:
+\begin{minted}{text}
+port 1194
+proto udp
+dev tap0
+ca keys/szca.crt
+cert keys/szovpn.crt
+key keys/szovpn.key
+dh keys/dh2048.pem
+server-bridge 10.8.3.2 255.255.255.0 10.8.3.50 10.8.3.100
+keepalive 2 10
+verb 4
+client-to-client
+\end{minted}
+
+The client configuration has to be changed to use the tap device:
+\begin{minted}{text}
+client
+dev tap
+proto udp
+remote 10.8.2.10 1194
+pkcs12 keys/szrw.pfx
+remote-cert-tls server
+keepalive 2 10
+verb 4
+\end{minted}
+
+Now to start the bridge, we can run the \texttt{bridge-start.sh} script. 
+Then we can start the OpenVPN server with the \texttt{openvpn --config bridged-server.conf} command. 
+After stopping the OpenVPN server, to stop the bridge, we can run the \texttt{bridge-stop.sh} script.
+
+When the OpenVPN server is up we can connect to it with the OpenVPN client. The client will get assigned an IP address from the server's IP pool, defined in the \texttt{server-bridge} directive, and will be able to communicate with the LAN computer.\\
+
+The output of \texttt{ip a} on the vpn client shows that the tap device is up and has an IP address from the server's IP pool.
+\begin{minted}{console}
+11: tap0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 1000
+link/ether 02:4b:2a:40:16:78 brd ff:ff:ff:ff:ff:ff
+inet 10.8.3.50/24 scope global tap0
+    valid_lft forever preferred_lft forever
+inet6 fe80::a465:85ff:fe18:7c0c/64 scope link 
+    valid_lft forever preferred_lft forever
+\end{minted}
+
+
+\paragraph{Sources}
+\begin{itemize}
+    \item \href{https://openvpn.net/community-resources/ethernet-bridging/}{OpenVPN Ethernet Bridging - Scripts} 
+\end{itemize}
