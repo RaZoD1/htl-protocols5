@@ -54,6 +54,9 @@
 
 \maketitle % Print the title
 
+\tableofcontents
+\clearpage
+
 \section{TLS Overview}
 
 Transport Layer Security (TLS) is a cryptographic protocol used for providing secure communications over an insecure network, like the internet. TLS provides security, confidentiality, authenticity and integrity. TSL builds on top of the now-deprecated Secure Sockets Layer (SSL) protocol and does not clearly fit one OSI-layer. Depending on who you ask TLS can be categorized as either one of the layers 4, 5, 6 and 7. 
@@ -116,15 +119,18 @@ This table shows the supported ciphers for the different TLS versions. It also s
     \caption{Protocol Version Compatibility of Various Ciphers}
 \end{table}
 
-
+\clearpage
 \section{Protocols}
 \input{protocols.tex}
 
+\clearpage
 \input{subprotocols.tex}
 
+\clearpage
 \section{TLS 1.2/1.3 Handshake}
 \label{sec:tls_handshake}
 \input{handshake.tex}
+\clearpage
 
 
 \input{security.tex}
