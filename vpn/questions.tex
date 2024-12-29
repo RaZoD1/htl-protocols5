@@ -4,7 +4,7 @@ The allocation of IP addresses to OpenVPN clients in server mode varies dependin
 
 \subsubsection{net30 (Default Mode up to OpenVPN 2.4)}
 \begin{itemize}
-    \item \textbf{Description}: Each client is assigned a dedicated /30 subnet, which reserves 4 IP addresses (one for the network, one for broadcast, and two usable addresses: one for the client and one for the server).
+    \item \textbf{Description}: Each client is assigned a dedicated /30 subnet, which reserves 4 IP addresses (one for the network, one for broadcast, and two usable addresses: one for the client and one for the server). Only Windows clients will set it up as a /30 subnet, non Windows clients will set it up as a true Point-to-Point config, treating it as a p2p topology.
 \item \textbf{IP Assignment}:
 \begin{itemize}
         \item The server gets the first usable IP address in the /30 subnet.
@@ -12,12 +12,12 @@ The allocation of IP addresses to OpenVPN clients in server mode varies dependin
 \end{itemize}
 \item \textbf{Example}:
 \begin{itemize}
-\item Subnet: \texttt{10.8.0.0/30}
-\item Server: \texttt{10.8.0.1}
-\item Client: \texttt{10.8.0.2}
-\item Broadcast: \texttt{10.8.0.3}
+\item Subnet: \texttt{10.8.0.4/30}
+\item Server: \texttt{10.8.0.5}
+\item Client: \texttt{10.8.0.6}
+\item Broadcast: \texttt{10.8.0.7}
 \end{itemize}
-\item \textbf{Implications}: This configuration is most efficient for point-to-point connections. However, it leads to IP address wastage and scaling limitations when dealing with numerous clients.
+\item \textbf{Implications}: This configuration wastes half of the IP addresses in each subnet and requires additional routing to reach clients due to the isolated subnets.
 \end{itemize}
 
 \subsubsection{subnet (Default Mode since OpenVPN 2.4)}
@@ -41,7 +41,7 @@ The allocation of IP addresses to OpenVPN clients in server mode varies dependin
 
 \subsubsection{p2p (Point-to-Point)}
 \begin{itemize}
-\item \textbf{Description}: This configuration establishes a direct connection between the server and a single client, bypassing the use of a shared subnet. IP address assignment is typically manual or explicitly pre-configured.
+\item \textbf{Description}: This configuration establishes a direct connection between the server and a single client, bypassing the use of a shared subnet. IP address assignment is typically manual or explicitly pre-configured. p2p is not usable on Windows systems.
 \item \textbf{IP Assignment}:
 \begin{itemize}
 \item Both the server and the client are assigned specific IP addresses from a predetermined range.
@@ -57,9 +57,8 @@ The allocation of IP addresses to OpenVPN clients in server mode varies dependin
 \subsubsection{Consequences of Using \texttt{net30}}
 \begin{itemize}
 \item \textbf{Inefficient IP Usage}: The \texttt{net30} configuration allocates a /30 subnet to each client, which includes four IP addresses. Out of these, only two are actively utilized (one for the server and one for the client), leading to a 50\% utilization rate and significant wastage.
-\item \textbf{Scalability Restrictions}: Due to the fixed allocation of a /30 subnet per client, scaling to accommodate a large number of clients becomes challenging. For instance, supporting 100 clients necessitates 400 IP addresses.
 \item \textbf{Increased Management Overhead}: Managing numerous individual /30 subnets can introduce complexity, especially when the requirement is for clients to communicate with each other. This mode is optimized for isolated connections rather than collaborative network environments.
-\item \textbf{Ideal Scenario}: The \texttt{net30} mode is best suited for scenarios where direct point-to-point connections are required, such as linking two distinct networks, and where direct client-to-client communication is not a primary need.
+\item \textbf{Ideal Scenario}: The only reason to use \texttt{net30} is for supporting Windows clients before 2.0.9, which is incredibly rare nowadays. 
 \end{itemize}
 
 \subsubsection{Enabling Inter-Client Communication}
@@ -80,7 +79,7 @@ The allocation of IP addresses to OpenVPN clients in server mode varies dependin
 \hline
 \texttt{subnet} & \text{First IP in subnet} & \text{IPs from subnet pool} & \text{Shared subnet for all clients} \\
 \hline
-\texttt{p2p} & \text{Manually defined} & \text{Manually defined} & \text{Direct point-to-point link} \\
+\texttt{p2p} & \text{Manually defined} & \text{Manually defined} & \text{Direct point-to-point link, no Windows support} \\
 \hline
 \end{array}
 \]

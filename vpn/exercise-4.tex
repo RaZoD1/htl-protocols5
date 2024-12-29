@@ -1,0 +1,23 @@
+\nicebox{
+Until this exercise, OpenVPN was operated in p2p mode, which is no longer practical for clients. Switch OpenVPN to server mode, explain which settings are hidden behind the server entry, explain and test the net30 and subnet configurations and explain how you can configure IP pools yourself.
+}
+
+For this exercise we used the examples found in /usr/share/doc/openvpn/examples/sample-config-files and modified them. In the server.conf we changed the path of the certificates, keys, and dh parameters to the correct path. We also commented ifconfig-pool-persist, as we do not need a log file for the IP addresses. We used 
+\begin{minted}{text}
+push "route 192.168.90.0 255.255.255.0"
+\end{minted}
+to push the route to the LAN computer to the client. We also removed tls-auth and updated the cipher to AES-256-GCM.
+
+The only other change we made to the client configuration was to set the remote to the ip of the server.
+
+This configuration worked and took an ip from the pool defined according to this line in the server\.conf:
+\begin{minted}{text}
+server 10.8.0.0 255.255.255.0
+\end{minted}
+
+To change to net30 mode, we need to add the following line to the server\.conf:
+\begin{minted}{text}
+topology net30
+\end{minted}
+
+This also worked without any other changed and the client got its own /30 subnet from the server. Note that the linux client treated it as a p2p connection and used a /32 subnet, ignoring broadcast and network address. More about this in question.
