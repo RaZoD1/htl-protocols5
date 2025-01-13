@@ -1,4 +1,4 @@
-Orthogonal frequency-division multiplexing (OFDM) and the multi user variant OFDMA are in nearly all modern wireless communication systems, including 4G, 5G, and Wi-Fi 6. OFDM is a modulation technique that divides the available spectrum into multiple orthogonal subcarriers. This allows for high spectral efficiency and robustness against frequency-selective fading. OFDMA is a multiple access scheme that allows multiple users to share the same frequency band by assigning different subcarriers to different users.
+Orthogonal frequency-division multiplexing (OFDM) and the multi user variant OFDMA are used in nearly all modern wireless communication systems, including 4G, 5G, and Wi-Fi 6. OFDM is a modulation technique that divides the available spectrum into multiple orthogonal subcarriers. This allows for high spectral efficiency and robustness against frequency-selective fading. OFDMA is a multiple access scheme that allows multiple users to share the same frequency band by assigning different subcarriers to different users.
 
 \subsection{FDM}
 
@@ -12,7 +12,7 @@ But lets start with Frequency Division Multiplexing (FDM) first, which is used i
 
 \subsection{OFDM}
 
-OFDM is a more efficient way to divide the spectrum. Instead of using non-overlapping subbands, OFDM divides the spectrum into multiple orthogonal subcarriers. This means that the subcarriers can be spaced closer together, allowing for a higher spectral efficiency. The orthogonality of the subcarriers means that they do not interfere with each other, even when they are spaced closely together. The peaks of the subcarriers line up with the nulls of the other subcarriers, as can be seen in the figure below.
+OFDM is a more efficient way to divide the spectrum. Instead of using non-overlapping subbands, OFDM divides the spectrum into multiple orthogonal subcarriers. This means that the subcarriers can be spaced closer together, allowing for a higher spectral efficiency. The orthogonality of the subcarriers means that they do not interfere with each other, even when they are spaced closely together. The peaks of each subcarrier's spectrum line up with the nulls of the other subcarriers, as can be seen in the figure below.
 
 \begin{figure}[H]
 	\centering
@@ -22,6 +22,6 @@ OFDM is a more efficient way to divide the spectrum. Instead of using non-overla
 
 \subsection{OFDMA}
 
-In OFDMA users are dynamically assigned a subset of the subcarriers, depending on their data rate requirements. This reallocation happens very fast, on the order of single milli seconds. Bad subnets, for example due to high frequency fading, are not assigned to users. This allows for a more efficient use of the spectrum and better performance in the presence of fading.
+In OFDMA users are dynamically assigned a subset of the subcarriers, depending on their data rate requirements. This reallocation happens very fast, on the order of single milliseconds. Bad subcarriers, for example, those experiencing high frequency fading, are not assigned to users. This allows for a more efficient use of the spectrum and better performance in the presence of fading.
 
-Compared to the other multiple access schemes, FDMA, TDMA, and CDMA, OFDMA has several advantages. It is more robust against frequency-selective fading, it allows for a more efficient use of the spectrum, and it is more flexible in terms of the number of users that can be supported. Ther higher complexity of OFDMA is a price most wireless technologies are willing to pay for the advantages it offers.
+Compared to the other multiple access schemes, FDMA, TDMA, and CDMA, OFDMA has several advantages. It is more robust against frequency-selective fading, allows for a more efficient use of the spectrum, and it is more flexible in terms of the number of users that can be supported. The higher complexity of OFDMA is a price most wireless technologies are willing to pay for the advantages it offers.
